@@ -1,0 +1,220 @@
+<style>
+.divest {
+    width: 100%;
+    height: auto;
+    border: thin solid black;
+	overflow-x: scroll;
+}
+td#nowrap{
+ white-space: nowrap;
+}
+th#nowrap{
+ white-space: nowrap;
+}
+.content {
+	min-height: 250px;
+	padding: 15px;
+	margin-right: auto;
+	margin-left: auto;
+	padding-left: 15px;
+	padding-right: 15px;
+}
+</style>
+
+    <div class="col-xs-15 col-sm-15">
+    	<div class="box">
+				  			<?php
+if($this->session->flashdata('message_name') !=null){
+?>
+<div class="alert alert-<?=$this->session->flashdata('kode_name');?> alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h4><i class="icon fa fa-<?=$this->session->flashdata('icon_name');?>"></i> Alert!</h4>
+                <?=$this->session->flashdata('message_name');?>
+              </div>
+<?php
+}
+?>
+    
+    		<div class="box-content">
+			  <ul id="myTab" class="nav nav-tabs">
+                  <li class="active"><a href="<?php echo base_url('dashboard/list_user_yang_mengajukan');?>">Klinik(Sudah Validasi)</a></li> 
+				  <li ><a href="<?php echo base_url('dashboard/list_user_yang_mengajukan_belum_validasi');?>">Klinik(Belum Validasi)</a></li> 
+				    <li ><a href="<?php echo base_url('dashboard/list_user_yang_mengajukan_belum_validasi_perbaikan');?>">Klinik(Perbaikan)</a></li> 
+              </ul>
+			    <div id="myTabContent" class="tab-content">
+			 <div class="tab-pane fade in active">
+			 <br>
+			 <div class="box-body">
+                                  <div class="box-body table-responsive no-padding">
+
+    			<h3 class="page-header">LIST FASYANKES YANG MENGAJUKAN KODE(Sudah Validasi)</h3>
+<!--
+<a href="<?php echo base_url('pmd/tambah_upload_spt');?>"><button class="btn btn-primary" type="button" name="add" value="Tambah" >Tambah</button></a><br><br>-->
+    		<form name="form_search" class="form-horizontal" method="POST" action="">
+
+    						<?php 
+			//$instalasi=9999;
+	 // echo myform_select('Instalasi/Unit', 'instalasi', dropdown_instalasi(null,null), (isset($data2['instalasi']) ? $data2['instalasi'] : '2'),'','');?>
+	 <?php //echo myform_select('Poli / SMF', 'poli', dropdown_poli((isset($data2['instalasi']) ? $data2['instalasi'] : '2'),'semua'),(isset($data2['poli']) ? $data2['poli'] : ''),'');?>
+	 <?php //echo myform_select('Kasir', 'kasir', dropdown_kasir(),(isset($data2['kasir']) ? $data2['kasir'] : (isset($user['id']) ? $user['id'] : '3254')),'');?>
+
+
+    <?php /* echo myform_select('Propinsi', 'alamat_propinsi', dropdown_propinsi(),$data['alamat_propinsi'],'','');?>
+    <?php echo myform_select('Kota/Kab', 'alamat_kota', dropdown_kota($prop), $data['alamat_kota'],'','');*/?>
+	<!--
+    <button class="btn btn-primary" type="submit" name="submit" value="save" style="margin-bottom:10px; margin-left:155px;">View</button>-->
+     
+</form>
+<!--<section class="content">
+<div class="divest" >-->
+<!--
+<table class="table-bordered table-condensed"  width="100%" >
+
+		<tr>
+		<td><b>No</b></td>
+		<td><b>Nama</b></td>
+		<td><b>Email</b></td>
+		<td><b>Keluhan</b></td>
+		<td><b>Kebutuhan</b></td>
+		<td><b>Action</b></td>
+		</tr>
+			<?php 
+
+			foreach ($data['query'] as $key => $value) {
+			$id++;
+		
+		?>
+			<tr>
+			<td><?php echo $id; ?></td>
+			<td><?php echo $value['nama_lengkap']; ?></td>
+			<td><?php echo $value['email']; ?></td>
+			<td><?php echo $value['keluhan']; ?></td>
+			<td><?php echo $value['kebutuhan']; ?></td>
+			<td><a href="<?=site_url('dashboard/module_assesment/'.$value['id']);?>" class="btn btn-mini edit-btn" ><i class="glyphicon glyphicon-pencil"></i> TINDAKAN</a> <br> <a onclick="return confirm('Yakin Di Hapus?');" href="<?=site_url('dashboard/hapus_pendaftaran/'.$value['id']);?>" class="btn btn-mini edit-btn" ><i class="glyphicon glyphicon-trash"></i> HAPUS</a></td>
+			</tr>
+	
+		<?php } ?>
+	</table>
+	 </div>
+ </section>
+	<div style=" margin-left:10px;">
+		<?php echo $data['halaman']; ?>
+	</div>
+-->
+<section class="content">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="box">
+            <div class="box-header">
+<div class="box-body">
+<div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+<div class="row">
+              <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                  <th>KODE KLINIK</th>
+                  <th>NAMA KLINIK</th>
+				   <th>PERSALINAN</th>
+				  <th>ALAMAT KLINIK</th>
+				  <th>STATUS</th>
+				   <th>STATUS AKTIF</th>
+                  <th>ACTION</th>
+                </tr>
+                </thead>
+                <tbody>
+				<?php 
+
+			foreach ($data['query'] as $key => $value) {
+			$id++;
+		
+		?>
+                <tr>
+                  <td><?php echo $value['kode_faskes']; ?></td>
+                  <td><?php echo $value['nama_klinik']; ?></td>
+				  <td><?php echo $value['persalinan']; ?></td>
+				  <td><?php echo $value['alamat_faskes']; ?></td>
+				  <td><?php echo (!empty($value['token_kode_faskes']) ? 'Sudah Di Validasi' : 'Belum Di Validasi'); ?></td>
+				  <?php
+				  if($this->session->userdata('id_kategori')=='1'){
+				  ?>
+				   <td><a href="<?=site_url('dashboard/ubah_status_klinik/'.$value['id']);?>"><?php echo $value['status_klinik']; ?></a></td>
+				   <?php
+				  }else{
+				   ?>
+				   <td><?php echo $value['status_klinik']; ?></td>
+				   <?php
+				  }
+				   ?>
+                  <td><a href="<?=site_url('dashboard/verifikasi_pengajuan_faskes/'.$value['id']);?>"><button type="button" class="btn btn-default"><span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span> Validasi</button></a> | <a href="<?=site_url('dashboard/timeline/'.$value['id']);?>"><button type="button" class="btn btn-default"><span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span> View Timeline</button></a> <!--| <a onclick="return confirm('Apakah Anda Yakin?')" href="<?=site_url('dashboard/tes_kirim/'.$value['id']);?>"><button type="button" class="btn btn-default"><span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span> Kirim Ke Aplikasi INM</button></a>--></td>
+                </tr>
+            <?php } ?> 
+                </tbody>
+               
+              </table>
+</div>
+</div>
+</div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script type="text/javascript">
+    var table;
+    $(document).ready(function() {
+ 
+        //datatables
+        table = $('#example1').DataTable({ 
+ 
+            "processing": true, 
+            "serverSide": true, 
+            "order": [], 
+             
+            "ajax": {
+                "url": "<?php echo site_url("dashboard/server_side_list_yang_mengajukan");?>",
+                "type": "POST"
+            },
+ 
+             
+            "columnDefs": [
+            { 
+                "targets": [ 0 ], 
+                "orderable": false, 
+            },
+            ],
+ 
+        });
+ 
+    });
+ 
+</script>
+<script>
+
+
+/*   $(document).ready(function () {
+    $('#example1').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: '<?php echo site_url("dashboard/server_side_list_yang_mengajukan");?>',
+    });
+});
+	 */
+/*     $('#example').DataTable( {
+        "processing": true,
+        "serverSide": true,
+        "ajax": {
+            "url": "<?php echo site_url("dashboard/list_user_yang_mendaftar_ajax_server/");?>",
+            "data": function ( d ) {
+                d.myKey = "myValue";
+                // d.custom = $('#myInput').val();
+                // etc
+            }
+        }
+    } ); */
+
+</script>

